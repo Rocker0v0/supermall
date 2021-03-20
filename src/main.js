@@ -3,10 +3,25 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import FastClick from 'fastclick'
+
+import toast from './components/common/toast'
+import lazyload from "vue-lazyload"
+
 Vue.config.productionTip = false
+Vue.use(lazyload,{
+  preLoad:1.0,
+  loading: require("./assets/img/common/placeholder.png"),
+  attempt:1
+})
+Vue.prototype.$bus = new Vue()
+// 安装toast插件
+Vue.use(toast)
+// 解决移动客户端的300毫秒延迟
+FastClick.attach(document.body)
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')
